@@ -1,4 +1,4 @@
 class History < ActiveRecord::Base
-belongs_to :users 
-belongs_to :searches 
+belongs_to :user 
+belongs_to :search 
 end 

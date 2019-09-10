@@ -1,4 +1,4 @@
 class Search < ActiveRecord::Base
 has_one :weather
-belongs_to :histories 
+belongs_to :history 
 end 

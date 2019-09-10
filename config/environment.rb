@@ -12,7 +12,6 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/develo
 # require_relative '../db/migrate/003_create_weathers'
 # require_relative '../db/migrate/004_create_histories'
 
-require_all 'db'
 require_all 'lib'
 
 

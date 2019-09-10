@@ -1,3 +1,11 @@
 require_relative '../config/environment'
 
-puts "hello world"
+require 'pry'
+
+cli = CLI.new
+cli.greeting 
+cli.cli_program
+
+
+
+
