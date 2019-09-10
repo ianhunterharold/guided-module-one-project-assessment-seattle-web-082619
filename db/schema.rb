@@ -12,13 +12,6 @@
 
 ActiveRecord::Schema.define(version: 4) do
 
-  create_table "histories", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "search_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "searches", force: :cascade do |t|
     t.string "search_location"
     t.datetime "created_at", null: false
@@ -27,6 +20,13 @@ ActiveRecord::Schema.define(version: 4) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users_searches", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "search_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

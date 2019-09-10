@@ -27,8 +27,12 @@ class CLI
         puts "Please type in a City to see the Weather"
         city_select = STDIN.gets.chomp.strip
           if Search.find_by(search_location: city_select)
+
+            # I want output to be weather description 
+            # where weather search_id = search.id 
+
             # Weather.description if Search.id == Weather.search_id 
-            puts true 
+            # puts Weather.description 
             # puts "It is #{Weather.description} in #{city_select}."
             # #want to spit out weather -
           else 
@@ -39,26 +43,51 @@ class CLI
           
 
       elsif choice == "2" 
-        puts "Someone's snooping..."
         puts 
-        History.all.each do |history|
+        puts 
+        UsersSearch.all.each do |history|
         puts "User ID: #{history.user_id}, Search ID: #{history.search_id} and it's timestamp: #{history.created_at}" 
         puts 
+        puts 
         end 
+        puts "Someone's snooping..."
+        puts 
       elsif choice == "3" 
-        puts "Are you sure you want to delete this history?" 
-        puts "Think about it. It's gone forever if you do..."
-        #write code that confirms that you are going to delete 
-        #all of the search history 
+        puts "Are you sure you want to delete a specific history? You're being dodgy.." 
+        puts 
+        puts "Please type in the specific row number you wish to delete"
+        puts 
+        delete_select = STDIN.gets.chomp.strip
+          if UsersSearch.find_by(id: delete_select)
+            UsersSearch.delete(delete_select)
+            puts "You're shady. Like the weather. Get it?"
+            puts 
+            puts "You have deleted search history #{delete_select}. I hope you're happy."
+            puts 
+          end 
+
       elsif choice == "4" 
         puts "Changing a search record. What are you hiding?"
+        puts "Please type the search locaiton you want to change"
+        puts  
+        puts "Come back to changing a search record"
+
+
+        
         #code to allow them to change a search record 
+
+
       elsif choice == "5"
+        puts 
         puts "Toodles"
+        puts 
         is_running = false 
       else 
-        puts "Do you know how to work a keyboard?"
-        puts "try typing in 1,2,3, or 4..."
+        puts 
+        puts "Are you familiar with a keyboard?"
+        puts 
+        puts "Try typing in 1,2,3,4 or..you can leave..."
+        puts 
       end 
     end 
   end 

@@ -1,4 +1,4 @@
 class User < ActiveRecord::Base
-has_many :histories 
-has_many :searches, through: :histories  #maybe not maybe so
+  has_many :users_searches
+  has_many :searches, through: :users_searches 
 end 
