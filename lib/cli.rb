@@ -54,6 +54,7 @@ class CLI
         end 
         puts "Someone's snooping..."
         puts 
+        
       elsif choice == "3" 
         puts "Are you sure you want to delete a specific history? You're being dodgy.." 
         puts 
@@ -61,7 +62,7 @@ class CLI
           puts "History ID: #{history.id}"  
           end 
           puts 
-        puts "Please type in the specific row number you wish to delete"
+        puts "Please type in the specific row you wish to delete"
         puts 
         delete_select = STDIN.gets.chomp.strip
           if UsersSearch.find_by(id: delete_select)
@@ -75,6 +76,10 @@ class CLI
           end 
 
       elsif choice == "4" 
+
+        Search.all.each do |search|
+          puts "Location: #{search.search_location}"  
+          end 
         puts 
         puts "Changing a search record's location. What are you hiding?"
         puts 
@@ -82,18 +87,21 @@ class CLI
         puts  
         user_picking_location = STDIN.gets.chomp.strip
         location_on_table = Search.find_by(search_location: user_picking_location) 
-        if location_on_table 
-          puts "Please type in the NEW location name. Straight up changing history..."
-          user_new_location = STDIN.gets.chomp.strip
-          return location_on_table.update(search_location: user_new_location)
+          if location_on_table 
+            puts "Please type in the NEW location name. Straight up changing history..."
+            user_new_location = STDIN.gets.chomp.strip
+            location_on_table.update(search_location: user_new_location)
+            puts "Your location changed from #{user_picking_location} to #{user_new_location}."
+            puts "That's not sketchy at all..." 
+            puts 
         else 
-          puts "Please select 4 again. The ID you typed in doesn't exist."
-        is_running = true 
+          puts 
+          puts "Please select 4 again. The location you typed in doesn't exist."
+          puts 
+          is_running = true 
         end 
-        is_running = true 
 
-#Still kicks me out of the program. Want to stay inside of the program until I tell it to exit.
-
+        # kicking me out of the program, want the program to stay up and running while Im still in it - 
 
       elsif choice == "5"
         puts 
