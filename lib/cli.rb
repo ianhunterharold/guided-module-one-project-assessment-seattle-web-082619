@@ -25,14 +25,17 @@ class CLI
       choice = STDIN.gets.chomp 
       if choice == "1"
         Search.all.each do |search|
-        puts "Search Location: #{search.search_location}"
+          puts "Search Location: #{search.search_location}"
         end 
+      
         puts "Please type in a City to see the Weather, then press enter" 
         user_input = STDIN.gets.chomp.strip
-        saved_location = Search.create(search_location: user_input)
+        
+          if actual_location = Search.find_by(search_location: user_input)
+          # search.id == weather.search_id 
+          return Weather.first.description 
 
-        if actual_location = Search.find_by(search_location: user_input)
-          Weather.first.description 
+          saved_location = Search.create(search_location: user_input)
           else
             puts false 
             puts "That City doesn't exit. Please re-select Search Weather." 
