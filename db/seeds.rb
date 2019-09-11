@@ -15,7 +15,7 @@ end
 end 
 
 10.times do 
-  Weather.create(description: Faker::Lorem.word, search: Search.all.sample)
+  Weather.find_or_create_by(description: Faker::Lorem.word, search: Search.all.sample)
 end 
 
 10.times do 

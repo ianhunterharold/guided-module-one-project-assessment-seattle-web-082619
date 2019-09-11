@@ -24,23 +24,22 @@ class CLI
 
       choice = STDIN.gets.chomp 
       if choice == "1"
-        puts "Please type in a City to see the Weather, then press enter"
+        Search.all.each do |search|
+        puts "Search Location: #{search.search_location}"
+        end 
+        puts "Please type in a City to see the Weather, then press enter" 
         user_input = STDIN.gets.chomp.strip
-        search_location = Search.create(search_location: user_input)
-        
-        
-        user_selecting_city = Search.find_by(search_location: search_location)
-          
-        if search_location
-              Weather.find_by(search_id: Search.id) 
-                return Weather.select(:description)
-          else 
-           
+        saved_location = Search.create(search_location: user_input)
+
+        if actual_location = Search.find_by(search_location: user_input)
+          Weather.first.description 
+          else
             puts false 
             puts "That City doesn't exit. Please re-select Search Weather." 
-          end  
-          
-          #binding.pry 
+          end 
+          is_running = true 
+
+          ## STILL NEED THIS TO SPIT OUT MY WEATHER CORRECTLY 
   
       elsif choice == "2" 
         puts 
@@ -55,6 +54,10 @@ class CLI
       elsif choice == "3" 
         puts "Are you sure you want to delete a specific history? You're being dodgy.." 
         puts 
+        UsersSearch.all.each do |history|
+          puts "History ID: #{history.id}"  
+          end 
+          puts 
         puts "Please type in the specific row number you wish to delete"
         puts 
         delete_select = STDIN.gets.chomp.strip
@@ -65,6 +68,7 @@ class CLI
             puts 
             puts "You have deleted search history #{delete_select}. I hope you're happy."
             puts 
+            is_running = true 
           end 
 
       elsif choice == "4" 
@@ -81,10 +85,12 @@ class CLI
           return location_on_table.update(search_location: user_new_location)
         else 
           puts "Please select 4 again. The ID you typed in doesn't exist."
-      end 
-        #currently not able to go back to menu, it kicks me out of my program.
-        #will work on that in a minute 
-        #cleaned up variable names so that it was more clear
+        is_running = true 
+        end 
+        is_running = true 
+
+#Still kicks me out of the program. Want to stay inside of the program until I tell it to exit.
+
 
       elsif choice == "5"
         puts 
