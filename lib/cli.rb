@@ -24,22 +24,23 @@ class CLI
 
       choice = STDIN.gets.chomp 
       if choice == "1"
-        puts "Please type in a City to see the Weather, then press enter."
-        city_select = STDIN.gets.chomp.strip
-        # city_select = Search.new
-        # city_select.save
-
-          if search_var = Search.find_by(search_location: city_select)
+        puts "Please type in a City to see the Weather, then press enter"
+        user_input = STDIN.gets.chomp.strip
+        search_location = Search.create(search_location: user_input)
+        
+        
+        user_selecting_city = Search.find_by(search_location: search_location)
+          
+        if search_location
               Weather.find_by(search_id: Search.id) 
                 return Weather.select(:description)
-            #type in city, input 
-            #weather description associated by search_id match ,output 
-            #reference code below for creating a new search
           else 
+           
             puts false 
-            puts "That City doesn't exit. Please re-type the city name." 
+            puts "That City doesn't exit. Please re-select Search Weather." 
           end  
           
+          #binding.pry 
   
       elsif choice == "2" 
         puts 
