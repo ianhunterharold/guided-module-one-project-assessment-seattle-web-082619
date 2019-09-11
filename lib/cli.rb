@@ -17,7 +17,7 @@ class CLI
     is_running = true 
     while is_running 
       puts "1. Search Weather"
-      puts "2. View History"
+      puts "2. View Search History"
       puts "3. Delete History"
       puts "4. Change a Search Record"
       puts "5. Exit program"
@@ -48,13 +48,11 @@ class CLI
         puts 
         puts 
         UsersSearch.all.each do |history|
-        puts "User ID: #{history.user_id}, Search ID: #{history.search_id} and it's timestamp: #{history.created_at}" 
-        puts 
+        puts "Name - #{history.user.name} and Location - #{history.search.search_location}" 
         puts 
         end 
         puts "Someone's snooping..."
         puts 
-        
       elsif choice == "3" 
         puts "Are you sure you want to delete a specific history? You're being dodgy.." 
         puts 
