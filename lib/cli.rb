@@ -24,24 +24,23 @@ class CLI
 
       choice = STDIN.gets.chomp 
       if choice == "1"
-        puts "Please type in a City to see the Weather"
+        puts "Please type in a City to see the Weather, then press enter."
         city_select = STDIN.gets.chomp.strip
-          if Search.find_by(search_location: city_select)
+        # city_select = Search.new
+        # city_select.save
 
-            # I want output to be weather description 
-            # where weather search_id = search.id 
-
-            # Weather.description if Search.id == Weather.search_id 
-            # puts Weather.description 
-            # puts "It is #{Weather.description} in #{city_select}."
-            # #want to spit out weather -
+          if search_var = Search.find_by(search_location: city_select)
+              Weather.find_by(search_id: Search.id) 
+                return Weather.select(:description)
+            #type in city, input 
+            #weather description associated by search_id match ,output 
+            #reference code below for creating a new search
           else 
-            puts "That City doesn't exit." 
+            puts false 
+            puts "That City doesn't exit. Please re-type the city name." 
           end  
           
-          ## doesnt full work, i need to work on the later half of this section. 
-          
-
+  
       elsif choice == "2" 
         puts 
         puts 
@@ -60,6 +59,7 @@ class CLI
         delete_select = STDIN.gets.chomp.strip
           if UsersSearch.find_by(id: delete_select)
             UsersSearch.delete(delete_select)
+            puts 
             puts "You're shady. Like the weather. Get it?"
             puts 
             puts "You have deleted search history #{delete_select}. I hope you're happy."
@@ -67,14 +67,22 @@ class CLI
           end 
 
       elsif choice == "4" 
-        puts "Changing a search record. What are you hiding?"
-        puts "Please type the search locaiton you want to change"
+        puts 
+        puts "Changing a search record's location. What are you hiding?"
+        puts 
+        puts "Please type a location you want to change"
         puts  
-        puts "Come back to changing a search record"
-
-
-        
-        #code to allow them to change a search record 
+        choice_select = STDIN.gets.chomp.strip
+        change = Search.find_by(search_location: choice_select) 
+        if change 
+          puts "Please type in the NEW location name. Straight up changing history..."
+          choice_new_location = STDIN.gets.chomp.strip
+          return change.update(search_location: choice_new_location)
+        else 
+          puts "Please select 4 again. The ID you typed in doesn't exist."
+      end 
+        #currently not able to go back to menu, it kicks me out of my program.
+        #will work on that in a minute 
 
 
       elsif choice == "5"
@@ -91,6 +99,7 @@ class CLI
       end 
     end 
   end 
+
 
 
 end 
