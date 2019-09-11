@@ -72,18 +72,18 @@ class CLI
         puts 
         puts "Please type a location you want to change"
         puts  
-        choice_select = STDIN.gets.chomp.strip
-        change = Search.find_by(search_location: choice_select) 
-        if change 
+        user_picking_location = STDIN.gets.chomp.strip
+        location_on_table = Search.find_by(search_location: user_picking_location) 
+        if location_on_table 
           puts "Please type in the NEW location name. Straight up changing history..."
-          choice_new_location = STDIN.gets.chomp.strip
-          return change.update(search_location: choice_new_location)
+          user_new_location = STDIN.gets.chomp.strip
+          return location_on_table.update(search_location: user_new_location)
         else 
           puts "Please select 4 again. The ID you typed in doesn't exist."
       end 
         #currently not able to go back to menu, it kicks me out of my program.
         #will work on that in a minute 
-
+        #cleaned up variable names so that it was more clear
 
       elsif choice == "5"
         puts 
