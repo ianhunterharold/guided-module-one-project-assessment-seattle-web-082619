@@ -4,6 +4,7 @@ require 'pry'
 class CLI
 
   def greeting
+    puts `clear`
     puts 
     puts 'Weather is neat, weather is cool.'
     puts 
@@ -23,44 +24,52 @@ class CLI
       puts "5. Exit program"
 
       choice = STDIN.gets.chomp 
+
       if choice == "1"
+        puts `clear`
         Search.all.each do |search|
-          puts "Search Location: #{search.search_location}"
+          puts "Location: #{search.search_location}"
         end 
-      
+        puts
         puts "Please type in a City to see the Weather, then press enter" 
         user_input = STDIN.gets.chomp.strip
-        
-          if actual_location = Search.find_by(search_location: user_input)
+        #code functioning to this point
+        actual_location = Search.find_by(search_location: user_input)
+          #given search location in the table, return the coresponding weather feature on weather 
+          #save search location
+          if weather_description =  Weather.find_by(search_id: actual_location.id)
           # search.id == weather.search_id 
-          return Weather.first.description 
-
-          saved_location = Search.create(search_location: user_input)
+            p "The Weather in #{user_input} is #{weather_description.description}" 
+            
+            saved_location = Search.create(search_location: user_input)
           else
-            puts false 
+            puts
+            puts `clear`
+            saved_location_regardless = Search.create(search_location: user_input)
             puts "That City doesn't exit. Please re-select Search Weather." 
           end 
-          is_running = true 
-
-          ## STILL NEED THIS TO SPIT OUT MY WEATHER CORRECTLY 
-  
+            is_running = true 
+           # binding.pry
+        
       elsif choice == "2" 
-        puts 
+        puts `clear`
         puts 
         UsersSearch.all.each do |history|
         puts "Name - #{history.user.name} and Location - #{history.search.search_location}" 
         puts 
         end 
-        puts "Someone's snooping..."
+        puts "Someone's being icy..."
         puts 
+        
       elsif choice == "3" 
-        puts "Are you sure you want to delete a specific history? You're being dodgy.." 
+        puts`clear`
+        puts "Are you sure you want to delete a specific search? You're being stormy..." 
         puts 
         UsersSearch.all.each do |history|
-          puts "History ID: #{history.id}"  
+          puts "ID - #{history.id}, Name - #{history.user.name} and Location - #{history.search.search_location}."  
           end 
           puts 
-        puts "Please type in the specific row you wish to delete"
+        puts "Please type in the specific ID you wish to delete"
         puts 
         delete_select = STDIN.gets.chomp.strip
           if UsersSearch.find_by(id: delete_select)
@@ -68,13 +77,17 @@ class CLI
             puts 
             puts "You're shady. Like the weather. Get it?"
             puts 
-            puts "You have deleted search history #{delete_select}. I hope you're happy."
+            puts "You have deleted ID #{delete_select}. I hope you're happy."
             puts 
-            is_running = true 
+            is_running = true
+          else 
+            puts 
+            puts "Please select 3 again. The ID you typed in doesn't exist."
+            puts
           end 
 
       elsif choice == "4" 
-
+        puts `clear`
         Search.all.each do |search|
           puts "Location: #{search.search_location}"  
           end 
@@ -90,18 +103,20 @@ class CLI
             user_new_location = STDIN.gets.chomp.strip
             location_on_table.update(search_location: user_new_location)
             puts "Your location changed from #{user_picking_location} to #{user_new_location}."
+            puts
             puts "That's not sketchy at all..." 
             puts 
-        else 
-          puts 
-          puts "Please select 4 again. The location you typed in doesn't exist."
-          puts 
-          is_running = true 
+          else 
+            puts 
+            puts "Please select 4 again. The location you typed in doesn't exist."
+            puts 
+            is_running = true 
         end 
 
         # kicking me out of the program, want the program to stay up and running while Im still in it - 
 
       elsif choice == "5"
+        puts `clear`
         puts 
         puts "Toodles"
         puts 
@@ -115,7 +130,4 @@ class CLI
       end 
     end 
   end 
-
-
-
 end 
