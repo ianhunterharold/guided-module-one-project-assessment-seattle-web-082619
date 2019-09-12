@@ -1,14 +1,19 @@
 require_relative '../config/environment'
 require 'pry'
+require 'colorize'
+
 
 class CLI
 
   def greeting
     puts `clear`
+    # puts String.colors
+    # puts String.modes 
+    puts 'Weather is breezy'.colorize(:light_magenta)
     puts 
-    puts 'Weather is neat, weather is cool.'
+    puts 'Weather is cool'.colorize(:black).on_red.underline
     puts 
-    puts "Don't get washed away by too many choices." 
+    puts "Don't get "+"washed".colorize(:light_magenta).italic+" away by too many choices."
     puts 
     puts "~ Select an option below ~"
     puts 
@@ -17,7 +22,7 @@ class CLI
   def cli_program
     is_running = true 
     while is_running 
-      puts "1. Search Weather"
+      puts "1. Search "+ "Weather".colorize(:cyan)
       puts "2. View Search History"
       puts "3. Delete History"
       puts "4. Change a Search Record"
@@ -31,16 +36,16 @@ class CLI
           puts "Location: #{search.search_location}"
         end 
         puts
-        puts "Please type in a City to see the Weather, then press enter" 
+        puts "Please type in a City to see the "+"Weather".colorize(:cyan)+", then press enter" 
         user_input = STDIN.gets.chomp.strip
         #code functioning to this point
         actual_location = Search.find_by(search_location: user_input)
           #given search location in the table, return the coresponding weather feature on weather 
           #save search location
           if weather_description =  Weather.find_by(search_id: actual_location.id)
-          # search.id == weather.search_id 
+          
             p "The Weather in #{user_input} is #{weather_description.description}" 
-            
+            puts 
             saved_location = Search.create(search_location: user_input)
           else
             puts
@@ -58,7 +63,7 @@ class CLI
         puts "Name - #{history.user.name} and Location - #{history.search.search_location}" 
         puts 
         end 
-        puts "Someone's being icy..."
+        puts "Someone's being drafty..."
         puts 
         
       elsif choice == "3" 
@@ -102,6 +107,7 @@ class CLI
             puts "Please type in the NEW location name. Straight up changing history..."
             user_new_location = STDIN.gets.chomp.strip
             location_on_table.update(search_location: user_new_location)
+            puts 
             puts "Your location changed from #{user_picking_location} to #{user_new_location}."
             puts
             puts "That's not sketchy at all..." 
@@ -131,3 +137,5 @@ class CLI
     end 
   end 
 end 
+
+
