@@ -12,6 +12,7 @@ end
 desc 'Run cli program'
 task :cli do
   cli = CLI.new
+  cli.create_user
   cli.greeting 
   cli.cli_program
 end

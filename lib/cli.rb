@@ -5,17 +5,27 @@ require 'colorize'
 
 class CLI
 
+  
+
+  def create_user
+    puts `clear`
+    puts "Please type in your name...then press enter.. I guess..."
+    user_name = STDIN.gets.chomp.strip 
+    $user = User.find_or_create_by(name: user_name)
+  end 
+  
   def greeting
+    
     puts `clear`
     # puts String.colors
     # puts String.modes 
     puts 'Weather is breezy'.colorize(:light_magenta)
     puts 
-    puts 'Weather is cool'.colorize(:black).on_red.underline
+    puts 'Weather is cool'
     puts 
     puts "Don't get "+"washed".colorize(:light_magenta).italic+" away by too many choices."
     puts 
-    puts "~ Select an option below ~"
+    puts "~ Select an option below #{$user.name} ~"
     puts 
   end 
 
@@ -46,16 +56,21 @@ class CLI
           
             p "The Weather in #{user_input} is #{weather_description.description}" 
             puts 
+
             saved_location = Search.create(search_location: user_input)
+
+            saved_location_in_history = UsersSearch.create(search_id: saved_location.id, user_id: $user.id)
+            # saved_in_history = History.create(search_id: )
+            # I need to create so that it saves in my join table every single time. 
+            # saved_location_in_history = History.create(search_id: Search.id, user_id:"placeholder")
+            #check for case sensativity ***
           else
             puts
             puts `clear`
-            saved_location_regardless = Search.create(search_location: user_input)
             puts "That City doesn't exit. Please re-select Search Weather." 
           end 
             is_running = true 
-           # binding.pry
-        
+          
       elsif choice == "2" 
         puts `clear`
         puts 
