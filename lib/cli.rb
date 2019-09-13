@@ -45,21 +45,26 @@ class CLI
         puts
         puts "Please type in a City to see the "+"Weather".colorize(:cyan)+", then press enter" 
         user_input = STDIN.gets.chomp.strip
-        actual_location = Search.find_by(search_location: user_input)
-          if weather_description =  Weather.find_by(search_id: actual_location.id)
+        #binding.pry
+        actual_location = Search.all.find_by(search_location: user_input)
+        
+
+          if actual_location
+            weather_description =  Weather.find_by(search_id: actual_location.id)
             puts "The "+"Weather".colorize(:cyan)+" in #{user_input} is "+"#{weather_description.description}".colorize(:cyan) 
             puts 
-
+        #binding.pry
             saved_location = Search.create(search_location: user_input)
 
             saved_location_in_history = UsersSearch.create(search_id: saved_location.id, user_id: $user.id)
             
           else
+            is_running = true            
             puts
             puts `clear`
             puts "That City doesn't have "+"weather.".colorize(:cyan)+" WIERD. Please re-select Search "+"Weather.".colorize(:cyan) 
           end 
-            is_running = true 
+            
           
       elsif choice == "2" 
         puts `clear`
@@ -119,7 +124,7 @@ class CLI
             puts 
           else 
             puts 
-            puts "Please select 4 again. The location you typed in doesn't exist"
+            puts "Please select 4 again - the location you typed in doesn't exist"
             puts 
             is_running = true 
         end 
