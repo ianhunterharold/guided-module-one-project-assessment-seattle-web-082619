@@ -20,7 +20,6 @@ Please enjoy utitlizing my CLI app to demonstrate these key concepts.
 As always, this is live code and from time to time as my knowledge expands, I will return back to refactor my first project. 
 
 
-
 ## Download Instructions
 =====================
 
@@ -30,6 +29,9 @@ Please include the following gems:
 - gem install colorize
 
 Please run file out of terminal with the command line:    rake cli 
+
+![Alt text](/relative/path/to/img.jpg?raw=true "Name Interface")
+![Alt text](/relative/path/to/img.jpg?raw=true "Menu Interface")
 
 
 This will initiate the program and the first screen you should see is to type in your name. 
