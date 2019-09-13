@@ -22,7 +22,7 @@ class CLI
     puts 
     puts "Don't get "+"washed".colorize(:light_magenta).italic+" away by too many choices."
     puts 
-    puts "~ Select an option below #{$user.name} ~"
+    puts "~ Select an option below "+"#{$user.name}".colorize(:cyan).italic+" ~"
     puts 
   end 
 
@@ -45,15 +45,17 @@ class CLI
         puts
         puts "Please type in a City to see the "+"Weather".colorize(:cyan)+", then press enter" 
         user_input = STDIN.gets.chomp.strip
-        #binding.pry
+        
         actual_location = Search.all.find_by(search_location: user_input)
         
 
           if actual_location
             weather_description =  Weather.find_by(search_id: actual_location.id)
-            puts "The "+"Weather".colorize(:cyan)+" in #{user_input} is "+"#{weather_description.description}".colorize(:cyan) 
+            puts "The "+"Weather".colorize(:cyan)+" in #{user_input} is "+"#{weather_description.description}".colorize(:cyan)
+            puts
+            puts "Wasn't expecting that weather, now were you."
             puts 
-        #binding.pry
+       
             saved_location = Search.create(search_location: user_input)
 
             saved_location_in_history = UsersSearch.create(search_id: saved_location.id, user_id: $user.id)
@@ -73,16 +75,26 @@ class CLI
           puts "Name - #{history.user.name} and Location - #{history.search.search_location}" 
         puts 
         end 
-        puts "Someone's being drafty..."
+        puts "Someone's being "+"drafty".colorize(:cyan)+"..."
         puts 
-        
+
+        # writing out my idea 
+        # if same user and same search location show up more than 3 times (iterate over searches) 
+        # then spit out puts "Notice how actual user is looking at specific location"
+  
+          # if specific_searches > 5
+          #   puts "Looks like someone has been searching #{search.search_location} a lot.."      
+          # else
+          #   puts "No particular place seems to be of interest to anyone."
+          # end  
       elsif choice == "3" 
         puts`clear`
-        puts "Are you sure you want to delete a specific search? You're being stormy..." 
         puts 
         UsersSearch.all.each do |history|
           puts "ID - #{history.id}, Name - #{history.user.name} and Location - #{history.search.search_location}."  
           end 
+          puts 
+          puts "Are you sure you want to delete a specific search? You're being stormy..." 
           puts 
         puts "Please type in the specific ID you wish to delete"
         puts 
@@ -98,6 +110,8 @@ class CLI
           else 
             puts 
             puts "Please select 3 again. The ID you typed in doesn't exist."
+            puts
+            puts "Try using your eyes and reading the screen for once..."
             puts
           end 
 
