@@ -15,13 +15,10 @@ class CLI
   end 
   
   def greeting
-    
     puts `clear`
-    # puts String.colors
-    # puts String.modes 
-    puts 'Weather is breezy'.colorize(:light_magenta)
+    puts "Weather is breezy".colorize(:light_magenta)
     puts 
-    puts 'Weather is cool'
+    puts "Weather is cool" 
     puts 
     puts "Don't get "+"washed".colorize(:light_magenta).italic+" away by too many choices."
     puts 
@@ -48,26 +45,19 @@ class CLI
         puts
         puts "Please type in a City to see the "+"Weather".colorize(:cyan)+", then press enter" 
         user_input = STDIN.gets.chomp.strip
-        #code functioning to this point
         actual_location = Search.find_by(search_location: user_input)
-          #given search location in the table, return the coresponding weather feature on weather 
-          #save search location
           if weather_description =  Weather.find_by(search_id: actual_location.id)
-          
-            p "The Weather in #{user_input} is #{weather_description.description}" 
+            puts "The "+"Weather".colorize(:cyan)+" in #{user_input} is "+"#{weather_description.description}".colorize(:cyan) 
             puts 
 
             saved_location = Search.create(search_location: user_input)
 
             saved_location_in_history = UsersSearch.create(search_id: saved_location.id, user_id: $user.id)
-            # saved_in_history = History.create(search_id: )
-            # I need to create so that it saves in my join table every single time. 
-            # saved_location_in_history = History.create(search_id: Search.id, user_id:"placeholder")
-            #check for case sensativity ***
+            
           else
             puts
             puts `clear`
-            puts "That City doesn't exit. Please re-select Search Weather." 
+            puts "That City doesn't have "+"weather.".colorize(:cyan)+" WIERD. Please re-select Search "+"Weather.".colorize(:cyan) 
           end 
             is_running = true 
           
@@ -75,7 +65,7 @@ class CLI
         puts `clear`
         puts 
         UsersSearch.all.each do |history|
-        puts "Name - #{history.user.name} and Location - #{history.search.search_location}" 
+          puts "Name - #{history.user.name} and Location - #{history.search.search_location}" 
         puts 
         end 
         puts "Someone's being drafty..."
@@ -95,7 +85,7 @@ class CLI
           if UsersSearch.find_by(id: delete_select)
             UsersSearch.delete(delete_select)
             puts 
-            puts "You're shady. Like the weather. Get it?"
+            puts "You're shady. Like the "+"weather. ".colorize(:cyan)+"Get it?"
             puts 
             puts "You have deleted ID #{delete_select}. I hope you're happy."
             puts 
@@ -112,9 +102,9 @@ class CLI
           puts "Location: #{search.search_location}"  
           end 
         puts 
-        puts "Changing a search record's location. What are you hiding?"
+        puts "Changing a search record's location. You are hiding something with clout.. get it.."
         puts 
-        puts "Please type a location you want to change"
+        puts "Please type a location name you want to change"
         puts  
         user_picking_location = STDIN.gets.chomp.strip
         location_on_table = Search.find_by(search_location: user_picking_location) 
@@ -129,7 +119,7 @@ class CLI
             puts 
           else 
             puts 
-            puts "Please select 4 again. The location you typed in doesn't exist."
+            puts "Please select 4 again. The location you typed in doesn't exist"
             puts 
             is_running = true 
         end 
