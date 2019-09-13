@@ -55,7 +55,6 @@ class CLI
             puts
             puts "Wasn't expecting that weather, now were you."
             puts 
-       
             saved_location = Search.create(search_location: user_input)
 
             saved_location_in_history = UsersSearch.create(search_id: saved_location.id, user_id: $user.id)
