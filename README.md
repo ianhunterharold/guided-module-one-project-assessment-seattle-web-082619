@@ -30,10 +30,10 @@ Please include the following gems:
 
 Please run file out of terminal with the command line:    rake cli 
 
-![Alt text](/guided-module-one-project-assessment-seattle-web-082619
+![Interface of Name](./guided-module-one-project-assessment-seattle-web-082619
 /Screen Shot 2019-09-13 at 2.08.21 PM.png "Name Interface")
 
-![Alt text](/relative/path/to/img.jpg?raw=true "Menu Interface")
+![Interface of Menu](/relative/path/to/img.jpg?raw=true "Menu Interface")
 
 
 
