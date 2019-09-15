@@ -30,11 +30,11 @@ Please include the following gems:
 
 Please run file out of terminal with the command line:    rake cli 
 
-![Name Interface](./Screen Shot2019-09-13at2.08.21PM.png "Name Interface")
+![Name Interface](./username_interface.png "Name Interface")
 
-![Interface of Menu](/relative/path/to/img.jpg?raw=true "Menu Interface")
+![Interface of Menu](./main_menu.png "Menu Interface")
 
-
+![Module Relationships](./module.png "Module Relationships")
 
 
 This will initiate the program and the first screen you should see is to type in your name. 
