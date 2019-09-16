@@ -28,6 +28,8 @@ Please include the following gems:
 - bundle install 
 - gem install colorize
 
+Then run rake db:migrate, and rake db:seed. Once you have migrated the databases and seeded them with data you can play around with the app! 
+
 Please run file out of terminal with the command line:    rake cli 
 
 ![Name Interface](./username_interface.png "Name Interface")
